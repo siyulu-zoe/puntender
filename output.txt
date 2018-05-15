@@ -1,0 +1,32 @@
+A tennis ball walks into a bar. The barman says, "Have you been served?"
+
+['tennis ball'] ['served']
+-0.027 0.09375 0.083
+There is a pun involving: 
+served and drink with probability 0.34775797834122685
+tennis ball and served with probability 0.34403960215472945
+A horse walks into a bar. The barman says, "Why the long face?"
+
+['horse'] ['long face']
+0.0012500000000000011 0.0004999999999999987 0.03
+There is a pun involving: 
+horse and long face with probability 0.3398366483263796
+A measle walks into a bar. The barman says, "Shots for everybody!"
+
+['measle'] ['shots', 'everybody']
+0.014750000000000001 0.032125 0.092
+There is a pun involving: 
+shots and bartender with probability 0.32846343587819354
+measle and shots with probability 0.3487308863339589
+A beaver walks into a bar. The barman says, "Close the dam door!"
+
+['beaver'] ['close', 'dam door']
+-0.0165 0.011375 0.0235
+There is a pun involving: 
+beaver and dam door with probability 0.33912816887564234
+A neutrino walks into a bar. The barman says, "No charge for you!"
+['neutrino'] ['charge']
+-0.013999999999999999 0.0295 0.064
+There is a pun involving: 
+charge and alcohol with probability 0.3341648934849028
+neutrino and charge with probability 0.345894759058311
