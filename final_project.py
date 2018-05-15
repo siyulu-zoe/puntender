@@ -45,54 +45,56 @@ def get_associations(word):
 	all_words = list(set(all_words))
 	all_words.sort()
 	all_words = np.setdiff1d(all_words, stop_words)
-	return all_words
+	return all_words.tolist()
 
 
-joke = "A tennis ball walks into a bar. The barman says, 'Have you been served?'"
-joke = joke.lower()
+with open('jokes.txt', 'r', encoding='UTF8') as jokes:
+	for joke in jokes:
+		print(joke)
+		joke = joke.lower().rstrip()
 
-customer = joke.split("walks")[0].strip()
-articles = ["a", "an", "the"]
-if customer.split(" ", 1)[0] in articles:
-	customer = customer.split(" ", 1)[1]
-customer = customer.replace(" ", "_")
+		customer = joke.split("walks")[0].strip()
+		articles = ["a", "an", "the"]
+		if customer.split(" ", 1)[0] in articles:
+			customer = customer.split(" ", 1)[1]
+		customer = customer.replace(" ", "_")
 
-cust_associations = get_associations(customer)
+		cust_associations = get_associations(customer)
 
-statement = strip_punctuation(joke.split("says, ")[1])
-statement_keywords = np.setdiff1d(statement.split(" "), stop_words)
-keyword = statement_keywords[0]
-keyword_associations = get_associations(keyword)
+		statement = strip_punctuation(joke.split("says, ")[1])
+		statement_keywords = np.setdiff1d(statement.split(" "), stop_words)
+		keyword = statement_keywords[0]
+		keyword_associations = get_associations(keyword)
 
-has_bar_connection = False
-bar_connection = ""
-has_customer_connection = False
-customer_connection = ""
-# check bar relation 
-if keyword in bar_associations or "bar" in keyword_associations:
-	has_bar_connection = True
-	bar_connection = "directly connected to the meaning of 'bar'."
-elif len(intersection(bar_associations, keyword_associations)) > 0:
-	has_bar_connection = True
-	bar_connection_words = intersection(bar_associations, keyword_associations)
-	bar_connection = "connected to the meaning of 'bar' via '" + bar_connection_words[0] + "'."
-#check customer relation
-if keyword in cust_associations or customer in keyword_associations:
-	has_customer_connection = True
-	customer_connection = "directly connected to the meaning of '" + customer + "'."
-elif len(intersection(cust_associations, keyword_associations)) > 0:
-	has_customer_connection = True
-	customer_connection_words = intersection(cust_associations, keyword_associations)
-	customer_connection = "connected to the meaning of '" + customer + "' via '" + customer_connection_words[0] + "'."
+		has_bar_connection = False
+		bar_connection = ""
+		has_customer_connection = False
+		customer_connection = ""
+		# check bar relation 
+		if (keyword in bar_associations) or "bar" in keyword_associations:
+			has_bar_connection = True
+			bar_connection = "directly connected to the meaning of 'bar'."
+		elif len(intersection(bar_associations, keyword_associations)) > 0:
+			has_bar_connection = True
+			bar_connection_words = intersection(bar_associations, keyword_associations)
+			bar_connection = "connected to the meaning of 'bar' via '" + bar_connection_words[0] + "'."
+		#check customer relation
+		if (keyword in cust_associations) or customer in keyword_associations:
+			has_customer_connection = True
+			customer_connection = "directly connected to the meaning of '" + customer + "'."
+		elif len(intersection(cust_associations, keyword_associations)) > 0:
+			has_customer_connection = True
+			customer_connection_words = intersection(cust_associations, keyword_associations)
+			customer_connection = "connected to the meaning of '" + customer + "' via '" + customer_connection_words[0] + "'."
 
-print "The joke is funny because it makes a pun on the word '" + keyword + "'."
-print "'" + keyword + "' is " + bar_connection
-print "'" + keyword + "' is " + customer_connection
+		print ("The joke is funny because it makes a pun on the word '" + keyword + "'.")
+		print ("'" + keyword + "' is " + bar_connection)
+		print ("'" + keyword + "' is " + customer_connection)
 
 
 
-# print intersection(bar_associations, keyword_associations)
-# print intersection(cust_associations, keyword_associations)
+		# print intersection(bar_associations, keyword_associations)
+		# print intersection(cust_associations, keyword_associations)
 
 
 
