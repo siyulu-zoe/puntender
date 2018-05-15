@@ -1,7 +1,8 @@
 import requests as r
 import re
-
 import time
+
+from string import punctuation
 
 from nltk.corpus import stopwords
 
@@ -18,11 +19,14 @@ REGEX = {
 # Minimum relationship before we consider that significant
 CUTOFF_WEIGHT = 0.02
 
+def strip_punctuation(s):
+    return ''.join(c for c in s if c not in punctuation)
+
 def match_jokes(joketype, joke):
 	subject, quote = REGEX[joketype].match(joke).groups()
 
-	subject = subject.lower().replace('.', '').replace('?', '').replace('!', '')
-	quote   = quote.lower().replace('.', '').replace('?', '').replace('!', '')
+	subject = strip_punctuation(subject.lower())
+	quote   = strip_punctuation(quote.lower())
 	return subject, quote
 
 def edge_weight(word1, word2):
@@ -83,7 +87,7 @@ def tokenize(sentence):
 
 
 if __name__ == '__main__':
-	with open('jokes.txt') as jokes:
+	with open('jokes.txt', 'r', encoding='UTF8') as jokes:
 		for joke in jokes:
 			print (joke)
 
