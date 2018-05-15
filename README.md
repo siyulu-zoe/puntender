@@ -10,4 +10,5 @@ To run the programs, you should run the following commands to install the import
 
 > python
 >>> nltk.download('wordnet')
+
 >>> nltk.download('stopwords')
