@@ -3,16 +3,10 @@ Joke understanding using WordNet and ConceptNet, on the joke structure, "____ wa
 
 There are two main programs: one which does analysis via WordNet (wordnetmain.py) and one which does analysis via ConceptNet (conceptnetmain.py). Both of these run using python3. If you do not have python3 installed, you can follow the installation instructions at the bottom.
 
-Before running the programs, you should run the following commands in the terminal to install the modules that the programs will use. 
+Before running the programs, you should run the following commands in the terminal to install the necessary modules and download the needed nltk packages. 
 ```bash
-pip3 install nltk
-pip3 install requests
-pip3 install numpy
-python3
->>> nltk.download('wordnet')
->>> nltk.download('stopwords')
+python3 setup.py
 ```
-
 To run the WordNet analyzer, run
 ```bash
 python3 wordnetmain.py

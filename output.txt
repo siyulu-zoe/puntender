@@ -1,11 +1,69 @@
+A duck walks into a bar with a bunch of friends, but all his friends ditch him. The barman says, "I guess the bill's on you."
+
+Failed to analyze joke!
+A tree walks into a bar. The barman says, "I think you would better leave."
+
+A tree I think you would better leave.
+['tree'] ['think', 'would', 'better', 'leave']
+0.009500000000000001 0.012875000000000001 -0.013500000000000002
+There is a pun involving: 
+A goat walks into a bar. The barman says, "We don't serve any kids."
+
+A goat We don't serve any kids.
+['goat'] ['serve', 'kids']
+-0.0035000000000000005 0.041874999999999996 0.0595
+There is a pun involving: 
+serve and drink
+goat and kids
+Another goat walks into a bar. The barman says, "Can is for customers only."
+
+Another goat Can is for customers only.
+['another', 'goat'] ['customers']
+0.009000000000000001 0.089 -0.067
+There is a pun involving: 
+customers and bartender
+An amoeba walks into a bar. The barman says, "Pay the tab before you split."
+
+An amoeba Pay the tab before you split.
+['amoeba'] ['pay', 'tab', 'split']
+0.025 0.06783333333333334 0.038
+There is a pun involving: 
+amoeba and bar
+tab and bar
+amoeba and tab
+A sandwich walks into a bar. The barman says, "Sorry, we don't serve any food here."
+
+A sandwich Sorry, we don't serve any food here.
+['sandwich'] ['sorry', 'serve', 'food']
+0.04925 0.09316666666666666 0.10466666666666667
+There is a pun involving: 
+sandwich and bar
+food and drink
+sandwich and food
+E-flat walks into a bar. The bartender says, "Sorry, we don't serve any minors."
+
+E-flat Sorry, we don't serve any minors.
+['e-flat'] ['sorry', 'serve', 'minors']
+0.0 0.06124999999999999 0.0
+There is a pun involving: 
+serve and drink
+Comic sans walks into a bar. The barman shouts, "Get out! We don't serve your type here!"
+
+Comic sans Get out! We don't serve your type here!
+['comic', 'sans'] ['get', 'serve', 'type']
+-0.013875000000000002 0.04674999999999999 -0.0065000000000000014
+There is a pun involving: 
+serve and drink
 A rabbi, a lutheran minister, and a priest walk into a bar. The barman says, "What is this? A joke?"
 
-['rabbi', 'lutheran minister', 'priest'] ['joke']
-0.009166666666666667 -0.0034999999999999996 0.034333333333333334
+A rabbi, a lutheran minister, and a priest What is this? A joke?
+['rabbi', 'lutheran', 'minister', 'priest'] ['joke']
+-0.0011250000000000053 -0.0034999999999999996 0.053
 There is a pun involving: 
-priest and joke
+lutheran and joke
 A neutron walks into a bar. The barman says, "For you, no charge!"
 
+A neutron For you, no charge!
 ['neutron'] ['charge']
 0.02075 0.0295 0.108
 There is a pun involving: 
@@ -14,19 +72,21 @@ charge and alcohol
 neutron and charge
 A tennis ball walks into a bar. The barman says, "Have you been served?"
 
-['tennis ball'] ['served']
--0.027 0.09375 0.083
+A tennis ball Have you been served?
+['tennis', 'ball'] ['served']
+-0.013124999999999996 0.09375 0.047
 There is a pun involving: 
 served and drink
-tennis ball and served
+tennis and served
 A horse walks into a bar. The barman says, "Why the long face?"
 
-['horse'] ['long face']
-0.0012500000000000011 0.0004999999999999987 0.03
+A horse Why the long face?
+['horse'] ['long', 'face']
+0.0012500000000000011 0.010499999999999999 -0.0095
 There is a pun involving: 
-horse and long face
 A measle walks into a bar. The barman says, "Shots for everybody!"
 
+A measle Shots for everybody!
 ['measle'] ['shots', 'everybody']
 0.014750000000000001 0.032125 0.092
 There is a pun involving: 
@@ -34,7 +94,15 @@ shots and bartender
 measle and shots
 A beaver walks into a bar. The barman says, "Close the dam door!"
 
-['beaver'] ['close', 'dam door']
--0.0165 0.011375 0.0235
+A beaver Close the dam door!
+['beaver'] ['close', 'dam', 'door']
+-0.0165 0.01375 0.059
 There is a pun involving: 
-beaver and dam door
+beaver and dam
+An ox walks into a bar. The barman says, "Off the wagon again?"
+An ox Off the wagon again?
+['ox'] ['wagon']
+0.04175 -0.017499999999999998 0.281
+There is a pun involving: 
+ox and bar
+ox and wagon

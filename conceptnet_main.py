@@ -2,7 +2,7 @@ import requests as r
 import re
 import time
 
-from string import punctuation
+punctuation = '!?.(),'
 
 from nltk.corpus import stopwords
 
@@ -13,7 +13,7 @@ CONTEXT_WORDS = {
 }
 
 REGEX = {
-	"bar": re.compile('^A (.+) (walks|walk) into a bar. The barman says, "(.+)"$'),
+	"bar": re.compile('^(.+) (walks|walk) into a bar. The (barman|bartender) (says|asks|shouts), "(.+)"$'),
 }
 
 # Minimum relationship before we consider that significant
@@ -23,10 +23,7 @@ def strip_punctuation(s):
     return ''.join(c for c in s if c not in punctuation)
 
 def match_jokes(joketype, joke):
-	subject, _, quote = REGEX[joketype].match(joke).groups()
-
-	subject = strip_punctuation(subject.lower())
-	quote   = strip_punctuation(quote.lower())
+	subject, _, _, _, quote = REGEX[joketype].match(joke).groups()
 	return subject, quote
 
 def edge_weight(word1, word2):
@@ -37,7 +34,7 @@ def edge_weight(word1, word2):
 
 	url = CONCEPTNET_URL.format(word1, word2)
 	obj = r.get(url).json()
-	time.sleep(1.5)
+	time.sleep(1.001)
 	
 	related = obj.get('related')
 	if related:
@@ -45,7 +42,7 @@ def edge_weight(word1, word2):
 
 	url = CONCEPTNET_URL.format(word2, word1)
 	obj = r.get(url).json()
-	time.sleep(1.5)
+	time.sleep(1.001)
 	
 	related = obj.get('related')
 	if related:
@@ -74,15 +71,16 @@ def softmax(x, y, z):
 STOPWORDS = list(stopwords.words('english'))
 
 def tokenize(sentence):
+	sentence = strip_punctuation(sentence)
+	
 	st = sentence.split(' ')
 	newst = []
 	for word in st:
-		if word not in STOPWORDS:
-			newst.append(word)
+		if word.lower() not in STOPWORDS:
+			newst.append(word.lower())
 		else:
-			newst.append('*')
-	newst = (' '.join(newst)).split('*')
-	newst = [w.lstrip().rstrip() for w in newst if (w and (w != ' '))]
+			pass
+	newst = [strip_punctuation(w.lstrip().rstrip()) for w in newst if (w and (w != ' '))]
 	return newst
 
 
@@ -91,28 +89,32 @@ if __name__ == '__main__':
 		for joke in jokes:
 			print (joke)
 
-			subject, quote = match_jokes('bar', joke)
-			# tokenize/lemmetize the words
-			print (tokenize(subject), tokenize(quote))
-			# subject, quote = tokenize(subject), tokenize(quote)
+			try:
+				subject, quote = match_jokes('bar', joke)
+				print (subject, quote)
+				print (tokenize(subject), tokenize(quote))
 
-			subject_set, quote_set = tokenize(subject), tokenize(quote)
+				subject_set, quote_set = tokenize(subject), tokenize(quote)
 
-			subject_set_weights, _1 = get_weights(subject_set, CONTEXT_WORDS["bar"])
-			quote_set_weights, _2 = get_weights(quote_set, CONTEXT_WORDS["bar"])
-			interset_weights, _3 = get_weights(subject_set, quote_set)
+				subject_set_weights, _1 = get_weights(subject_set, CONTEXT_WORDS["bar"])
+				quote_set_weights, _2 = get_weights(quote_set, CONTEXT_WORDS["bar"])
+				interset_weights, _3 = get_weights(subject_set, quote_set)
 
-			# print(subject_set_weights, quote_set_weights, interset_weights)
-			print(_1, _2, _3)
+				# print(subject_set_weights, quote_set_weights, interset_weights)
+				print(_1, _2, _3)
 
-			x, y, z = softmax(_1, _2, _3)
-			print ("There is a pun involving: ")
-			if _1> CUTOFF_WEIGHT:
-				m, n = subject_set_weights[-1][1]
-				print('{} and {}'.format(m, n))
-			if _2 > CUTOFF_WEIGHT:
-				m, n = quote_set_weights[-1][1]
-				print('{} and {}'.format(m, n))
-			if _3 > CUTOFF_WEIGHT:
-				m, n = interset_weights[-1][1]
-				print('{} and {}'.format(m, n))
+				x, y, z = softmax(_1, _2, _3)
+				print ("There is a pun involving: ")
+				if _1> CUTOFF_WEIGHT:
+					m, n = subject_set_weights[-1][1]
+					print('{} and {}'.format(m, n))
+				if _2 > CUTOFF_WEIGHT:
+					m, n = quote_set_weights[-1][1]
+					print('{} and {}'.format(m, n))
+				if _3 > CUTOFF_WEIGHT:
+					m, n = interset_weights[-1][1]
+					print('{} and {}'.format(m, n))
+
+			except:
+				print ("Failed to analyze joke!")
+			
