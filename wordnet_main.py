@@ -10,6 +10,9 @@ bar_associations = ['alcoholic', 'bar', 'barroom', 'bought', 'coke', 'counter', 
  'drinks', 'drowned', 'establishment', 'food', 'ginmill', 'hot', 'obtain', 'room',\
  'saloon', 'served', 'sorrows', 'taproom', 'whiskey']
 
+def is_wordnet_word(word):
+	return len(wn.synsets(word)) > 0
+
 # given a string, return that string but with punctuation removed
 def strip_punctuation(s):
     return ''.join(c for c in s if c not in punctuation)
@@ -19,6 +22,8 @@ def intersection(a, b):
     return list(set(a) & set(b))
 
 def get_associations(word):
+	if not is_wordnet_word(word):
+		return []
 	word_synsets = wn.synsets(word)
 	all_words = []
 	for sense in word_synsets:
@@ -45,49 +50,122 @@ def get_associations(word):
 	all_words = np.setdiff1d(all_words, stop_words)
 	return all_words.tolist()
 
+# def has_direct_bar_association(keyword, keyword_associations):
+# 	return (keyword in bar_associations) or "bar" in keyword_associations
+
+# def indirect_bar_association(keyword, keyword_associations):
+# 	has_association = len(intersection(bar_associations, keyword_associations)) > 0
+# 	bar_connection_words = intersection(bar_associations, keyword_associations)
+# 	return has_association, bar_connection_words
+
+def has_direct_association(keyword, keyword_associations, keyword2, keyword2_associations):
+	return (keyword in keyword2_associations) or keyword2 in keyword_associations
+
+def indirect_association(keyword, keyword_associations, keyword2, keyword2_associations):
+	has_association = len(intersection(keyword_associations, keyword2_associations)) > 0
+	connection_words = "' and '".join(intersection(keyword_associations, keyword2_associations))
+	return has_association, connection_words
+
+def determine_connection(keyword, keyword_associations, keyword2, keyword2_associations):
+	if has_direct_association(keyword, keyword_associations, keyword2, keyword2_associations):
+		print ("'" + keyword + "' is directly connected to the meaning of '" + keyword2 + "'.")
+		return True
+	elif indirect_association(keyword, keyword_associations, keyword2, keyword2_associations)[0]:
+		print ("'" + keyword + "' is connected to the meaning of '" + keyword2 + "' via '" + \
+			indirect_association(keyword, keyword_associations, keyword2, keyword2_associations)[1] + "'.")
+		return True
+	else:
+		print ("No Wordnet connection between '" + keyword + "' and '" + keyword2 + "' could be found.")
+		return False
+
+
+def determine_keyword(statement_keywords, customer, customer_associations):
+	if len(statement_keywords) == 1:
+		return statement_keywords[0]
+	else:
+		keyword_points = {}
+		for keyword in statement_keywords:
+			keyword_points[keyword] = 0
+			keyword_associations = get_associations(keyword)
+			if has_direct_association(keyword, keyword_associations, "bar", bar_associations):
+				keyword_points[keyword] += 3
+			elif indirect_association(keyword, keyword_associations, "bar", bar_associations)[0]:
+				keyword_points[keyword] += 2
+			if has_direct_association(keyword, keyword_associations, customer, customer_associations):
+				keyword_points[keyword] += 4
+			elif indirect_association(keyword, keyword_associations, customer, customer_associations)[0]:
+				keyword_points[keyword] += 3
+		return max(keyword_points, key=keyword_points.get)
+
 
 with open('jokes.txt', 'r', encoding='UTF8') as jokes:
 	for joke in jokes:
-		print(joke)
+		print("")
+		print(joke.strip())
+		is_understandible = True
 		joke = joke.lower().rstrip()
 
-		customer = joke.split("walks")[0].strip()
+		customer = joke.split(" walk")[0].strip()
 		articles = ["a", "an", "the", "another"]
 		if customer.split(" ", 1)[0] in articles:
 			customer = customer.split(" ", 1)[1]
 		customer = customer.replace(" ", "_")
+		customer_associations = get_associations(customer)
 
-		cust_associations = get_associations(customer)
-
-		statement = strip_punctuation(joke.split("says, ")[1])
+		statement = strip_punctuation(joke.split("s, ")[1])
 		statement_keywords = np.setdiff1d(statement.split(" "), stop_words)
-		keyword = statement_keywords[0]
+		if len(statement_keywords) == 0:
+			print ("Could not determine any word that had a pun being made on it.")
+			continue
+
+		keyword = determine_keyword(statement_keywords, customer, customer_associations)
 		keyword_associations = get_associations(keyword)
 
-		has_bar_connection = False
-		bar_connection = ""
-		has_customer_connection = False
-		customer_connection = ""
-		# check bar relation 
-		if (keyword in bar_associations) or "bar" in keyword_associations:
-			has_bar_connection = True
-			bar_connection = "directly connected to the meaning of 'bar'."
-		elif len(intersection(bar_associations, keyword_associations)) > 0:
-			has_bar_connection = True
-			bar_connection_words = intersection(bar_associations, keyword_associations)
-			bar_connection = "connected to the meaning of 'bar' via '" + bar_connection_words[0] + "'."
-		#check customer relation
-		if (keyword in cust_associations) or customer in keyword_associations:
-			has_customer_connection = True
-			customer_connection = "directly connected to the meaning of '" + customer + "'."
-		elif len(intersection(cust_associations, keyword_associations)) > 0:
-			has_customer_connection = True
-			customer_connection_words = intersection(cust_associations, keyword_associations)
-			customer_connection = "connected to the meaning of '" + customer + "' via '" + customer_connection_words[0] + "'."
+		has_customer_connection = determine_connection(keyword, keyword_associations, customer, customer_associations)
+		has_bar_connection = determine_connection(keyword, keyword_associations, "bar", bar_associations)
 
-		print ("The joke is funny because it makes a pun on the word '" + keyword + "'.")
-		print ("'" + keyword + "' is " + bar_connection)
-		print ("'" + keyword + "' is " + customer_connection)
+		if has_customer_connection and has_bar_connection:
+			print ("The joke is funny because it makes a pun on the word '" + keyword + "'.")
+		elif has_customer_connection or has_bar_connection:
+			print ("The joke is probably funny because it makes a pun on the word '" + keyword + "'. However, it's uncertain.")
+		else:
+			print ("The joke might be funny because it makes a pun on the word '" + keyword + "'. However, no puns were found.")
+
+		# has_bar_connection = False
+		# bar_connection = ""
+		
+		# # check bar relation 
+		# if (keyword in bar_associations) or "bar" in keyword_associations:
+		# 	has_bar_connection = True
+		# 	bar_connection = "directly connected to the meaning of 'bar'."
+		# elif len(intersection(bar_associations, keyword_associations)) > 0:
+		# 	has_bar_connection = True
+		# 	bar_connection_words = intersection(bar_associations, keyword_associations)
+		# 	bar_connection = "connected to the meaning of 'bar' via '" + bar_connection_words[0] + "'."
+
+
+
+		# has_customer_connection = False
+		# # customer_connection = ""
+		# if is_wordnet_word(customer):
+		# 	cust_associations = get_associations(customer)	
+		# 	#check customer relation
+		# 	if (keyword in cust_associations) or customer in keyword_associations:
+		# 		has_customer_connection = True
+		# 		print ("'" + keyword + "' is directly connected to the meaning of '" + customer + "'."
+		# 	elif len(intersection(cust_associations, keyword_associations)) > 0:
+		# 		has_customer_connection = True
+		# 		customer_connection_words = intersection(cust_associations, keyword_associations)
+		# 		print ("'" + keyword + "' is connected to the meaning of '" + customer + "' via '" + customer_connection_words[0] + "'."
+		# 	else:
+		# 		("No Wordnet connection between '" + keyword + "' and '" + customer "' could be found.")
+		# else:
+		# 	print ("Wordnet cannot doesn't have the word, '" + customer + "' listed in its database, so no pun connection could be found.")
+
+		
+		# print ("'" + keyword + "' is " + bar_connection)
+		
+
 
 
 
