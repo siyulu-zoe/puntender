@@ -10,6 +10,8 @@ bar_associations = ['alcoholic', 'bar', 'barroom', 'bought', 'coke', 'counter', 
  'drinks', 'drowned', 'establishment', 'food', 'ginmill', 'hot', 'obtain', 'room',\
  'saloon', 'served', 'sorrows', 'taproom', 'whiskey']
 
+obscure_word_mapping = {"measle": "measles", "comic_sans": "font", "e-flat": "flat"}
+
 def is_wordnet_word(word):
 	return len(wn.synsets(word)) > 0
 
@@ -110,9 +112,12 @@ with open('jokes.txt', 'r', encoding='UTF8') as jokes:
 		if customer.split(" ", 1)[0] in articles:
 			customer = customer.split(" ", 1)[1]
 		customer = customer.replace(" ", "_")
+		if (not is_wordnet_word(customer)) and customer in obscure_word_mapping:
+			print ("Treating '" + customer + "' as '" + obscure_word_mapping[customer] + "'...")
+			customer = obscure_word_mapping[customer]
 		customer_associations = get_associations(customer)
 
-		statement = strip_punctuation(joke.split("s, ")[1])
+		statement = strip_punctuation(joke.split("s, \"")[1])
 		statement_keywords = np.setdiff1d(statement.split(" "), stop_words)
 		if len(statement_keywords) == 0:
 			print ("Could not determine any word that had a pun being made on it.")
