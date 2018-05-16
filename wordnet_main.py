@@ -1,5 +1,3 @@
-# run this after installing nltk if it is your first time using this program
-# nltk.download() 
 from nltk.corpus import wordnet as wn
 from string import punctuation
 import numpy as np
@@ -54,7 +52,7 @@ with open('jokes.txt', 'r', encoding='UTF8') as jokes:
 		joke = joke.lower().rstrip()
 
 		customer = joke.split("walks")[0].strip()
-		articles = ["a", "an", "the"]
+		articles = ["a", "an", "the", "another"]
 		if customer.split(" ", 1)[0] in articles:
 			customer = customer.split(" ", 1)[1]
 		customer = customer.replace(" ", "_")
