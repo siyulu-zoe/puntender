@@ -13,7 +13,7 @@ CONTEXT_WORDS = {
 }
 
 REGEX = {
-	"bar": re.compile('^A (.+) walks into a bar. The barman says, "(.+)"$'),
+	"bar": re.compile('^A (.+) (walks|walk) into a bar. The barman says, "(.+)"$'),
 }
 
 # Minimum relationship before we consider that significant
@@ -23,7 +23,7 @@ def strip_punctuation(s):
     return ''.join(c for c in s if c not in punctuation)
 
 def match_jokes(joketype, joke):
-	subject, quote = REGEX[joketype].match(joke).groups()
+	subject, _, quote = REGEX[joketype].match(joke).groups()
 
 	subject = strip_punctuation(subject.lower())
 	quote   = strip_punctuation(quote.lower())
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
 			x, y, z = softmax(_1, _2, _3)
 			print ("There is a pun involving: ")
-			if _1 > CUTOFF_WEIGHT:
+			if _1> CUTOFF_WEIGHT:
 				m, n = subject_set_weights[-1][1]
 				print('{} and {}'.format(m, n))
 			if _2 > CUTOFF_WEIGHT:
