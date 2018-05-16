@@ -109,10 +109,10 @@ if __name__ == '__main__':
 			print ("There is a pun involving: ")
 			if _1 > CUTOFF_WEIGHT:
 				m, n = subject_set_weights[-1][1]
-				print('{} and {} with probability {}'.format(m, n, x))
+				print('{} and {}'.format(m, n))
 			if _2 > CUTOFF_WEIGHT:
 				m, n = quote_set_weights[-1][1]
-				print('{} and {} with probability {}'.format(m, n, y))
+				print('{} and {}'.format(m, n))
 			if _3 > CUTOFF_WEIGHT:
 				m, n = interset_weights[-1][1]
-				print('{} and {} with probability {}'.format(m, n, z))
+				print('{} and {}'.format(m, n))
