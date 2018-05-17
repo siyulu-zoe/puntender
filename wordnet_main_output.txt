@@ -1,0 +1,78 @@
+
+A duck walks into a bar with a bunch of friends, but all his friends ditch him. The barman says, "I guess the bill's on you."
+'bills' is connected to the meaning of 'duck' via 'bird' and 'usually' and 'used'.
+No Wordnet connection between 'bills' and 'bar' could be found.
+The joke is probably funny because it makes a pun on the word 'bills'. However, it's uncertain.
+
+A tree walks into a bar. The barman says, "I think you would better leave."
+'better' is connected to the meaning of 'tree' via 'having' and 'person' and 'position' and 'house' and 'plant' and 'force'.
+'better' is connected to the meaning of 'bar' via 'food' and 'room'.
+The joke is funny because it makes a pun on the word 'better'.
+
+A goat walks into a bar. The barman says, "We don't serve any kids."
+'kids' is directly connected to the meaning of 'goat'.
+No Wordnet connection between 'kids' and 'bar' could be found.
+The joke is probably funny because it makes a pun on the word 'kids'. However, it's uncertain.
+
+Another goat walks into a bar. The barman says, "Can is for customers only."
+'can' is connected to the meaning of 'goat' via 'butt'.
+'can' is connected to the meaning of 'bar' via 'food' and 'room' and 'drink'.
+The joke is funny because it makes a pun on the word 'can'.
+
+An amoeba walks into a bar. The barman says, "Pay the tab before you split."
+'tab' is connected to the meaning of 'amoeba' via 'form'.
+No Wordnet connection between 'tab' and 'bar' could be found.
+The joke is probably funny because it makes a pun on the word 'tab'. However, it's uncertain.
+
+A sandwich walks into a bar. The barman says, "Sorry, we don't serve any food here."
+No Wordnet connection between 'food' and 'sandwich' could be found.
+'food' is directly connected to the meaning of 'bar'.
+The joke is probably funny because it makes a pun on the word 'food'. However, it's uncertain.
+
+E-flat walks into a bar. The bartender says, "Sorry, we don't serve any minors."
+Treating 'e-flat' as 'flat'...
+'serve' is connected to the meaning of 'flat' via 'work' and 'car' and 'answer' and 'food' and 'usually' and 'desk'.
+'serve' is connected to the meaning of 'bar' via 'served' and 'food' and 'drink'.
+The joke is funny because it makes a pun on the word 'serve'.
+
+Comic sans walks into a bar. The barman shouts, "Get out! We don't serve your type here!"
+Treating 'comic_sans' as 'font'...
+'serve' is connected to the meaning of 'font' via 'specific'.
+'serve' is connected to the meaning of 'bar' via 'served' and 'food' and 'drink'.
+The joke is funny because it makes a pun on the word 'serve'.
+
+A rabbi, a lutheran minister, and a priest walk into a bar. The barman says, "What is this? A joke?"
+No Wordnet connection between 'joke' and 'rabbi,_a_lutheran_minister,_and_a_priest' could be found.
+No Wordnet connection between 'joke' and 'bar' could be found.
+The joke might be funny because it makes a pun on the word 'joke'. However, no puns were found.
+
+A neutron walks into a bar. The barman says, "For you, no charge!"
+'charge' is directly connected to the meaning of 'neutron'.
+'charge' is connected to the meaning of 'bar' via 'room'.
+The joke is funny because it makes a pun on the word 'charge'.
+
+A tennis ball walks into a bar. The barman says, "Have you been served?"
+'served' is connected to the meaning of 'tennis_ball' via 'ball' and 'used'.
+'served' is directly connected to the meaning of 'bar'.
+The joke is funny because it makes a pun on the word 'served'.
+
+A horse walks into a bar. The barman says, "Why the long face?"
+'face' is connected to the meaning of 'horse' via 'head'.
+No Wordnet connection between 'face' and 'bar' could be found.
+The joke is probably funny because it makes a pun on the word 'face'. However, it's uncertain.
+
+A measle walks into a bar. The barman says, "Shots for everybody!"
+Treating 'measle' as 'measles'...
+No Wordnet connection between 'shots' and 'measles' could be found.
+'shots' is connected to the meaning of 'bar' via 'whiskey' and 'drink'.
+The joke is probably funny because it makes a pun on the word 'shots'. However, it's uncertain.
+
+A beaver walks into a bar. The barman says, "Close the dam door!"
+'close' is connected to the meaning of 'beaver' via 'used'.
+'close' is directly connected to the meaning of 'bar'.
+The joke is funny because it makes a pun on the word 'close'.
+
+An ox walks into a bar. The barman says, "Off the wagon again?"
+'wagon' is connected to the meaning of 'ox' via 'various'.
+No Wordnet connection between 'wagon' and 'bar' could be found.
+The joke is probably funny because it makes a pun on the word 'wagon'. However, it's uncertain.
